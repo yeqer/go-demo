@@ -5,6 +5,7 @@ import "fmt"
 type connection interface {
 	announce()
 }
+
 type statement interface {
 	announce()
 }
