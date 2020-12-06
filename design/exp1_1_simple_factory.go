@@ -1,4 +1,4 @@
-package main
+package design
 
 import (
 	"fmt"
@@ -6,53 +6,46 @@ import (
 )
 
 //simple factory design pattern
+
+//person parent class
 type Person interface {
 	announce()
 }
 
-type Man struct {
+//man,woman,robot inherit the parent class separately
+type man struct {
 }
-
-func (Man) announce() {
+func (man) announce() {
 	fmt.Println("I am a man")
 }
 
-type Woman struct {
+type woman struct {
 }
-
-func (Woman) announce() {
+func (woman) announce() {
 	fmt.Println("I am a woman")
 }
 
-type Robot struct {
+type robot struct {
 }
-
-func (Robot) announce() {
+func (robot) announce() {
 	fmt.Println("I am a robot")
 }
 
+//abstract factory
 type NvwaFactory struct {
 }
-
 func (*NvwaFactory)CreatePerson(like string) Person {
 	if strings.EqualFold(like,"M"){
-		fmt.Println("NvwaFactory create a Man")
-		return &Man{}
+		fmt.Println("NvwaFactory create a man")
+		return &man{}
 	} else if strings.EqualFold(like,"W"){
 		fmt.Println("NvwaFactory create a woman")
-		return &Woman{}
+		return &woman{}
 	} else if strings.EqualFold(like, "R"){
-		fmt.Println("NvwaFactory create a Robot")
-		return &Robot{}
+		fmt.Println("NvwaFactory create a robot")
+		return &robot{}
 	}
 	fmt.Println("NvwaFactory can't create such a person")
 	return nil
 }
 
-func main() {
-	var nvwaFactory NvwaFactory
-	var brand string
-	fmt.Scanln(&brand)
-	person := nvwaFactory.CreatePerson(brand)
-	person.announce()
-}
